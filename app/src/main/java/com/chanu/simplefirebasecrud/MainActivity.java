@@ -101,6 +101,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbReference= FirebaseDatabase.getInstance().getReference().child("student");
+                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild("std1")){
+                            try {
+                                student.setId(txtId.getText().toString().trim());
+                                student.setName(txtName.getText().toString().trim());
+                                student.setAddress(txtAddress.getText().toString().trim());
+                                student.setContact(Integer.valueOf(txtContact.getText().toString().trim()));
+
+                                dbReference = FirebaseDatabase.getInstance().getReference().child("student").child("std1");
+                                dbReference.setValue(student);
+
+                                clearInputs();
+                                Toast.makeText(getApplicationContext(),"Update Successfully", Toast.LENGTH_SHORT).show();
+                            }catch (NumberFormatException e){
+                                Toast.makeText(getApplicationContext(),"Invalid contact Number", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else {
+                            Toast.makeText(getApplicationContext(),"No source to update", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
 
     }
 }

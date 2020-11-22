@@ -1,5 +1,6 @@
 package com.chanu.simplefirebasecrud;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,13 +64,40 @@ public class MainActivity extends AppCompatActivity {
                         student.setAddress(txtAddress.getText().toString().trim());
                         student.setContact(Integer.valueOf(txtContact.getText().toString().trim()));
 
-                        dbReference.push().setValue(student);
+                        //dbReference.push().setValue(student);
+                        dbReference.child("std1").setValue(student);
                         Toast.makeText(getApplicationContext(),"Student Added Successfully",Toast.LENGTH_SHORT).show();
                         clearInputs();
                     }
                 }catch (NumberFormatException e){
                     Toast.makeText(getApplicationContext(),"Invalid Contact Number",Toast.LENGTH_SHORT);
                 }
+            }
+        });
+
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbReference= FirebaseDatabase.getInstance().getReference().child("student").child("std1");
+                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChildren()){
+                            txtId.setText(snapshot.child("id").getValue().toString());
+                            txtName.setText(snapshot.child("name").getValue().toString());
+                            txtAddress.setText(snapshot.child("address").getValue().toString());
+                            txtContact.setText(snapshot.child("contact").getValue().toString());
+                        }else{
+                            Toast.makeText(getApplicationContext(),"No Source to display",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 

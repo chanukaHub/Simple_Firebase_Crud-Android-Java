@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "777018433354",
+    "firebase_url": "https://simple-firebase-crud-git.firebaseio.com",
+    "project_id": "simple-firebase-crud-git",
+    "storage_bucket": "simple-firebase-crud-git.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777018433354:android:f9790edd65dbef4066abb3",
+        "android_client_info": {
+          "package_name": "com.chanu.simplefirebasecrud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777018433354-g5tpg29chs3f80v6rk4nfm2heenlteng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCVX1b4gQosMTy6CtNbIp-A8NTSh6wIsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777018433354-g5tpg29chs3f80v6rk4nfm2heenlteng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
